@@ -91,7 +91,7 @@ def show_imp_units():
 
 window = tk.Tk()
 window.geometry("700x700")
-window.title("BMI Calculator")
+window.title("BMI calculator")
 
 kg_entry = tk.StringVar()
 metre_entry = tk.StringVar()
