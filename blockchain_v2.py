@@ -1,5 +1,14 @@
 import hashlib
 import time
+import graphviz
+
+# Input of transaction of information
+
+send = input("Who is the sender? ")
+rec = input("Who is the recipient? ")
+value = input("What is the amount? ")
+
+# Creating class for the creation of individual blocks
 
 class Block:
     def __init__(self, transactions, prev_hash):
@@ -13,6 +22,7 @@ class Block:
         sha.update((str(self.transactions) + str(self.prev_hash) + str(self.timestamp)).encode('utf-8'))
         return sha.hexdigest()
 
+# Creating class for the creation of the block (stringing along of blocks)
 class Blockchain:
     def __init__(self):
         self.chain = [self.create_genesis_block()]
@@ -25,15 +35,24 @@ class Blockchain:
         new_block = Block(transactions, prev_block.hash)
         self.chain.append(new_block)
 
-blockchain = Blockchain()
-blockchain.add_block(transactions=[{'sender' : 'Adnan', 'recipient' : 'Julie', 'Amount' : 5}])
-blockchain.add_block(transactions=[{'sender' : 'Adnan', 'recipient' : 'Navin', 'Amount' : 4}])
-blockchain.add_block(transactions=[{'sender' : 'Adnan', 'recipient' : 'Mohamed', 'Amount' : 7}])
+# Function for visualising the blockchain as a png file
 
-print("Blockchain:")
-for block in blockchain.chain:
-    print("Data", block.transactions)
-    print("Previous Hash:", block.prev_hash)
-    print("Hash:", block.hash)
-    print("Timestamp: ", block.timestamp)
-    print()
+    def visualize(self):
+        dot = graphviz.Digraph(comment='Blockchain')
+        for i, block in enumerate(self.chain):
+            if i == 0:
+                dot.node(str(i),
+                     f"Block {i}\nHash: {block.hash}\nPrev Hash: {block.prev_hash}\nTimestamp: {block.timestamp:.2f}")
+            else:
+                dot.node(str(i),
+                         f"Block {i}\nSender: {send}\nRecipient: {rec}\nAmount: {value}\nHash: {block.hash}\nPrev Hash: {block.prev_hash}\nTimestamp: {block.timestamp:.2f}")
+            if i > 0:
+                dot.edge(str(i - 1), str(i))
+        dot.render('blockchain', format='png', cleanup=True)
+        print("Blockchain visualization created: 'blockchain.png'")
+
+# blockchain transactions
+
+blockchain = Blockchain()
+blockchain.add_block(transactions=[{'sender' : send, 'recipient' : rec, 'Amount' : value}])
+blockchain.visualize()
