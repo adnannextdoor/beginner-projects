@@ -3,7 +3,6 @@ from sys import exit
 from random import randint, choice
 
 pygame.init()
-
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -116,10 +115,10 @@ game_over_image_rect = game_over_image.get_rect(center=(400,300))
 instruction_text = font1.render('Press SPACE to start.', True, 'Grey')
 instruction_text_rect = instruction_text.get_rect(center=(400,450))
 
-tribute_text = font3.render('Developed by Itachi', True, 'Black')
+tribute_text = font3.render('Developed by adnannextdoor', True, 'Black')
 tribute_text_rect = tribute_text.get_rect(bottomright=(795,595))
 
-game_over_text = font2.render('This is the only level.', True, 'Blue')
+game_over_text = font2.render('Dodging Dumbo', True, 'Blue')
 game_over_rect = game_over_text.get_rect(center=(400,150))
 
 obstacle_timer = pygame.USEREVENT + 1
@@ -161,7 +160,7 @@ while True:
 
     else:
         obstacle_speed = 5
-        screen.fill('White')
+        screen.fill('Light green')
         screen.blit(game_over_text, game_over_rect)
         screen.blit(game_over_image, game_over_image_rect)
         screen.blit(instruction_text, instruction_text_rect)
@@ -171,7 +170,6 @@ while True:
             pass
         else:
             screen.blit(final_score_text, final_score_rect)
-
 
     pygame.display.update()
     clock.tick(60)
