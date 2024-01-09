@@ -1,5 +1,0 @@
-setup.py
-gameproject.egg-info/PKG-INFO
-gameproject.egg-info/SOURCES.txt
-gameproject.egg-info/dependency_links.txt
-gameproject.egg-info/top_level.txt
